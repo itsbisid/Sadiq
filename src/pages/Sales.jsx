@@ -174,7 +174,7 @@ const Sales = () => {
               <div id="reader" style={{ width: '100%' }}></div>
               <button 
                 className="btn-ghost" 
-                style={{ position: 'absolute', top: '10px', right: '10px', z-index: 10 }}
+                style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 10 }}
                 onClick={() => setIsScanning(false)}
               >
                 <X size={20} />
