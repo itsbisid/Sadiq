@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Package, AlertTriangle, ChevronRight, Trash2 } from 'lucide-react';
 import { db } from '../lib/db';
-import './ProductCard.css';
 
 const ProductCard = ({ product, onDelete, onManage }) => {
   const isLowStock = product.current_stock_bottles <= product.low_stock_threshold;
@@ -18,69 +17,172 @@ const ProductCard = ({ product, onDelete, onManage }) => {
       return;
     }
     
-    console.log('Confirming delete for:', product.id);
     try {
       const id = Number(product.id);
       await db.products.delete(id);
-      console.log('Successfully deleted from Dexie:', id);
       if (onDelete) onDelete(id);
     } catch (err) {
-      console.error('CRITICAL: Delete failed:', err);
-      alert('Could not delete product. Check console for details.');
+      console.error('Delete failed:', err);
     } finally {
       setShowConfirmDelete(false);
     }
   };
 
+  // Inline styles for production reliability
+  const cardStyle = {
+    padding: '1.5rem',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1.5rem',
+    position: 'relative',
+    transition: 'all 0.3s ease',
+    border: isLowStock ? '1px solid rgba(239, 68, 68, 0.5)' : '1px solid rgba(255, 255, 255, 0.1)',
+    minHeight: '220px'
+  };
+
+  const headerStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start'
+  };
+
+  const infoGroupStyle = {
+    display: 'flex',
+    gap: '1rem',
+    alignItems: 'center'
+  };
+
+  const iconBgStyle = {
+    width: '44px',
+    height: '44px',
+    borderRadius: '12px',
+    background: isLowStock ? 'rgba(239, 68, 68, 0.1)' : 'rgba(99, 102, 241, 0.1)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: isLowStock ? '#f87171' : '#818cf8'
+  };
+
+  const nameStyle = {
+    fontSize: '1.1rem',
+    fontWeight: '700',
+    color: 'var(--text-main)',
+    margin: 0
+  };
+
+  const skuStyle = {
+    fontSize: '0.75rem',
+    color: 'var(--text-muted)',
+    textTransform: 'uppercase',
+    letterSpacing: '0.05em'
+  };
+
+  const stockGridStyle = {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1px 1fr',
+    gap: '1rem',
+    background: 'rgba(255, 255, 255, 0.03)',
+    padding: '1rem',
+    borderRadius: '12px',
+    alignItems: 'center'
+  };
+
+  const stockItemStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  };
+
+  const stockValueStyle = {
+    fontSize: '1.25rem',
+    fontWeight: '800',
+    color: 'var(--text-main)'
+  };
+
+  const stockLabelStyle = {
+    fontSize: '0.7rem',
+    color: 'var(--text-muted)',
+    textTransform: 'uppercase'
+  };
+
+  const footerStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 'auto'
+  };
+
+  const deleteBtnStyle = {
+    width: '36px',
+    height: '36px',
+    borderRadius: '8px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    border: 'none',
+    transition: 'all 0.2s ease',
+    background: showConfirmDelete ? '#ef4444' : 'rgba(255, 255, 255, 0.05)',
+    color: showConfirmDelete ? 'white' : 'var(--text-muted)'
+  };
+
   return (
-    <div className={`glass-card product-card ${isLowStock ? 'warning-border' : ''}`}>
-      <div className="product-header">
-        <div className="product-info">
-          <div className="product-icon">
-            <Package size={24} className={isLowStock ? 'text-warning' : 'text-primary'} />
+    <div className="glass-card product-card-hover" style={cardStyle}>
+      <div style={headerStyle}>
+        <div style={infoGroupStyle}>
+          <div style={iconBgStyle}>
+            <Package size={22} />
           </div>
-          <div className="product-details">
-            <h3>{product.name}</h3>
-            <span className="sku">{product.sku}</span>
+          <div>
+            <h3 style={nameStyle}>{product.name}</h3>
+            <span style={skuStyle}>{product.sku}</span>
           </div>
         </div>
         <button 
-          className={`delete-btn ${showConfirmDelete ? 'confirming' : ''}`} 
-          onClick={handleDelete} 
-          title={showConfirmDelete ? "Confirm Delete" : "Delete Product"}
-          style={{ backgroundColor: showConfirmDelete ? 'var(--danger)' : '', color: showConfirmDelete ? 'white' : '' }}
+          style={deleteBtnStyle} 
+          onClick={handleDelete}
         >
           {showConfirmDelete ? <AlertTriangle size={18} /> : <Trash2 size={18} />}
         </button>
       </div>
       
-      <div className="product-stock">
-        <div className="stock-values">
-          <div className="stock-item">
-            <span className="value">{displayCrates}</span>
-            <span className="label">Crates</span>
-          </div>
-          <div className="stock-divider" />
-          <div className="stock-item">
-            <span className="value">{displayBottles}</span>
-            <span className="label">Bottles</span>
-          </div>
+      <div style={stockGridStyle}>
+        <div style={stockItemStyle}>
+          <span style={stockValueStyle}>{displayCrates}</span>
+          <span style={stockLabelStyle}>Crates</span>
         </div>
-        
-        {isLowStock && (
-          <div className="low-stock-badge">
+        <div style={{ width: '1px', height: '24px', background: 'rgba(255, 255, 255, 0.1)' }} />
+        <div style={stockItemStyle}>
+          <span style={stockValueStyle}>{displayBottles}</span>
+          <span style={stockLabelStyle}>Bottles</span>
+        </div>
+      </div>
+      
+      <div style={footerStyle}>
+        {isLowStock ? (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#facc15', fontSize: '0.8rem', fontWeight: '600' }}>
             <AlertTriangle size={14} />
             <span>Low Stock</span>
           </div>
-        )}
-      </div>
-      
-      <div className="product-actions">
-        <button className="btn-ghost" onClick={() => onManage(product)}>
+        ) : <div />}
+        
+        <button 
+          className="btn-ghost" 
+          onClick={() => onManage(product)}
+          style={{ padding: '0.5rem 0.75rem', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.85rem' }}
+        >
           <span>Manage</span>
           <ChevronRight size={16} />
         </button>
       </div>
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        .product-card-hover:hover {
+          transform: translateY(-5px);
+          border-color: var(--primary) !important;
+          box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+      `}} />
     </div>
   );
 };

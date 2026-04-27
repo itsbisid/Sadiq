@@ -58,27 +58,27 @@ const Navbar = () => {
         
         <div style={linksContainerStyle} className="nav-links">
           <NavLink to="/" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-            <LayoutDashboard size={18} />
+            <span className="nav-icon"><LayoutDashboard size={18} /></span>
             <span>Dashboard</span>
           </NavLink>
           <NavLink to="/products" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-            <Package size={18} />
+            <span className="nav-icon"><Package size={18} /></span>
             <span>Inventory</span>
           </NavLink>
           <NavLink to="/sales" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-            <ShoppingCart size={18} />
+            <span className="nav-icon"><ShoppingCart size={18} /></span>
             <span>Sales</span>
           </NavLink>
           <NavLink to="/customers" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-            <Users size={18} />
+            <span className="nav-icon"><Users size={18} /></span>
             <span>Customers</span>
           </NavLink>
           <NavLink to="/history" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-            <FileText size={18} />
+            <span className="nav-icon"><FileText size={18} /></span>
             <span>History</span>
           </NavLink>
           <NavLink to="/expenses" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-            <DollarSign size={18} />
+            <span className="nav-icon"><DollarSign size={18} /></span>
             <span>Expenses</span>
           </NavLink>
         </div>

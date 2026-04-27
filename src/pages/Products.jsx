@@ -82,43 +82,52 @@ const Products = () => {
       </div>
 
       {isAdding && (
-        <div className="glass-card animate-fade-in" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-            <h3>New Product</h3>
-            <button className="btn-ghost" onClick={() => setIsAdding(false)}><X size={20} /></button>
+        <div className="glass-card animate-fade-in" style={{ padding: '2rem', marginBottom: '2.5rem', border: '1px solid var(--primary)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: '800' }}>Add New Product</h3>
+            <button className="btn-ghost" onClick={() => setIsAdding(false)} style={{ borderRadius: '50%', width: '40px', height: '40px', padding: 0 }}><X size={20} /></button>
           </div>
-          <form onSubmit={handleAddProduct} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+          <form onSubmit={handleAddProduct} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
             <div className="input-group">
-              <label>Product Name</label>
+              <label style={{ fontSize: '0.85rem', fontWeight: '600', color: 'var(--text-muted)', marginBottom: '0.5rem', display: 'block' }}>Product Name</label>
               <input 
-                className="glass-card" style={{ padding: '0.75rem', width: '100%', marginTop: '0.5rem' }}
+                className="glass-card" 
+                style={{ padding: '0.85rem 1rem', width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', outline: 'none', color: 'var(--text-main)' }}
+                placeholder="e.g. Coca Cola 1.5L"
                 required value={newProduct.name} onChange={e => setNewProduct({...newProduct, name: e.target.value})}
               />
             </div>
             <div className="input-group">
-              <label>SKU</label>
+              <label style={{ fontSize: '0.85rem', fontWeight: '600', color: 'var(--text-muted)', marginBottom: '0.5rem', display: 'block' }}>SKU / Barcode</label>
               <input 
-                className="glass-card" style={{ padding: '0.75rem', width: '100%', marginTop: '0.5rem' }}
+                className="glass-card" 
+                style={{ padding: '0.85rem 1rem', width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', outline: 'none', color: 'var(--text-main)' }}
+                placeholder="e.g. COKE-1.5L"
                 value={newProduct.sku} onChange={e => setNewProduct({...newProduct, sku: e.target.value})}
               />
             </div>
             <div className="input-group">
-              <label>Units per Crate</label>
+              <label style={{ fontSize: '0.85rem', fontWeight: '600', color: 'var(--text-muted)', marginBottom: '0.5rem', display: 'block' }}>Units per Crate</label>
               <input 
-                type="number" className="glass-card" style={{ padding: '0.75rem', width: '100%', marginTop: '0.5rem' }}
+                type="number" className="glass-card" 
+                style={{ padding: '0.85rem 1rem', width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', outline: 'none', color: 'var(--text-main)' }}
                 value={newProduct.units_per_crate} onChange={e => setNewProduct({...newProduct, units_per_crate: parseInt(e.target.value)})}
               />
             </div>
             <div className="input-group">
-              <label>Selling Price (Crate)</label>
-              <input 
-                type="number" step="0.01" className="glass-card" style={{ padding: '0.75rem', width: '100%', marginTop: '0.5rem' }}
-                value={newProduct.selling_price_crate} onChange={e => setNewProduct({...newProduct, selling_price_crate: parseFloat(e.target.value)})}
-              />
+              <label style={{ fontSize: '0.85rem', fontWeight: '600', color: 'var(--text-muted)', marginBottom: '0.5rem', display: 'block' }}>Selling Price (Crate)</label>
+              <div style={{ position: 'relative' }}>
+                <span style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', fontSize: '0.9rem' }}>GH₵</span>
+                <input 
+                  type="number" step="0.01" className="glass-card" 
+                  style={{ padding: '0.85rem 1rem 0.85rem 3rem', width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', outline: 'none', color: 'var(--text-main)' }}
+                  value={newProduct.selling_price_crate} onChange={e => setNewProduct({...newProduct, selling_price_crate: parseFloat(e.target.value)})}
+                />
+              </div>
             </div>
-            <div className="input-group" style={{ gridColumn: '1 / -1', display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-              <button type="submit" className="btn btn-primary">Save Product</button>
-              <button type="button" className="btn btn-ghost" onClick={() => setIsAdding(false)}>Cancel</button>
+            <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
+              <button type="submit" className="btn btn-primary" style={{ padding: '0.85rem 2.5rem' }}>Save Product</button>
+              <button type="button" className="btn btn-ghost" onClick={() => setIsAdding(false)}>Discard Changes</button>
             </div>
           </form>
         </div>
