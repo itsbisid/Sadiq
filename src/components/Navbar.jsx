@@ -24,7 +24,7 @@ const Navbar = () => {
 
   const navContentStyle = {
     width: '100%',
-    maxWidth: '1200px',
+    maxWidth: '1300px',
     margin: '0 auto',
     display: 'flex',
     justifyContent: 'space-between',
@@ -32,20 +32,21 @@ const Navbar = () => {
   };
 
   const logoStyle = {
-    fontSize: '1.5rem',
+    fontSize: '1.6rem',
     fontWeight: '900',
     color: '#6366f1',
     margin: 0,
     padding: 0,
-    whiteSpace: 'nowrap'
+    whiteSpace: 'nowrap',
+    letterSpacing: '-0.5px'
   };
 
   const linksContainerStyle = {
     display: 'flex',
     flexDirection: 'row',
-    gap: '1.5rem',
+    gap: '0.75rem',
     alignItems: 'center',
-    margin: '0 1rem'
+    margin: '0 2rem'
   };
 
   return (
@@ -57,27 +58,27 @@ const Navbar = () => {
         
         <div style={linksContainerStyle} className="nav-links">
           <NavLink to="/" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-            <LayoutDashboard size={20} />
+            <LayoutDashboard size={18} />
             <span>Dashboard</span>
           </NavLink>
           <NavLink to="/products" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-            <Package size={20} />
+            <Package size={18} />
             <span>Inventory</span>
           </NavLink>
           <NavLink to="/sales" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-            <ShoppingCart size={20} />
+            <ShoppingCart size={18} />
             <span>Sales</span>
           </NavLink>
           <NavLink to="/customers" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-            <Users size={20} />
+            <Users size={18} />
             <span>Customers</span>
           </NavLink>
           <NavLink to="/history" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-            <FileText size={20} />
+            <FileText size={18} />
             <span>History</span>
           </NavLink>
           <NavLink to="/expenses" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-            <DollarSign size={20} />
+            <DollarSign size={18} />
             <span>Expenses</span>
           </NavLink>
         </div>

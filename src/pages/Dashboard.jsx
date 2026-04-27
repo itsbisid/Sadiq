@@ -98,8 +98,8 @@ const Dashboard = () => {
           </h2>
           <p className="text-muted">Welcome back, Sadiq. Here's what's happening today.</p>
         </div>
-        <Link to="/sales" className="btn btn-primary shadow-lg" style={{ borderRadius: 'var(--radius-full)', padding: '0.75rem 2rem' }}>
-          <Plus size={20} />
+        <Link to="/sales" className="btn btn-primary shadow-lg" style={{ borderRadius: '12px', padding: '0.8rem 1.5rem', fontSize: '0.9rem' }}>
+          <Plus size={18} strokeWidth={3} />
           <span>New Sale</span>
         </Link>
       </div>
@@ -233,30 +233,30 @@ const Dashboard = () => {
       <div className="dashboard-sections" style={{ marginTop: '2rem' }}>
         <div className="glass-card" style={{ padding: '2rem' }}>
           <h3 style={{ marginBottom: '1.5rem' }}>Quick Command Center</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1.5rem' }}>
-            <Link to="/sales" className="quick-action-card glass-card group">
-              <div className="action-icon-bg"><ShoppingCart size={24} /></div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
+            <Link to="/sales" className="quick-action-card glass-card">
+              <div className="action-icon-bg" style={{ background: 'rgba(99, 102, 241, 0.1)' }}><ShoppingCart size={22} /></div>
               <div className="action-text">
                 <span className="action-title">Sales Portal</span>
                 <span className="action-desc">Record a new transaction</span>
               </div>
             </Link>
-            <Link to="/products" className="quick-action-card glass-card group">
-              <div className="action-icon-bg"><Plus size={24} /></div>
+            <Link to="/products" className="quick-action-card glass-card">
+              <div className="action-icon-bg" style={{ background: 'rgba(16, 185, 129, 0.1)', color: 'var(--secondary)' }}><Plus size={22} /></div>
               <div className="action-text">
                 <span className="action-title">Inventory</span>
                 <span className="action-desc">Add or adjust stock levels</span>
               </div>
             </Link>
-            <Link to="/customers" className="quick-action-card glass-card group">
-              <div className="action-icon-bg"><Users size={24} /></div>
+            <Link to="/customers" className="quick-action-card glass-card">
+              <div className="action-icon-bg" style={{ background: 'rgba(245, 158, 11, 0.1)', color: 'var(--accent)' }}><Users size={22} /></div>
               <div className="action-text">
                 <span className="action-title">Client CRM</span>
                 <span className="action-desc">Manage customer accounts</span>
               </div>
             </Link>
-            <Link to="/expenses" className="quick-action-card glass-card group">
-              <div className="action-icon-bg"><DollarSign size={24} /></div>
+            <Link to="/expenses" className="quick-action-card glass-card">
+              <div className="action-icon-bg" style={{ background: 'rgba(99, 102, 241, 0.1)' }}><DollarSign size={22} /></div>
               <div className="action-text">
                 <span className="action-title">Finance</span>
                 <span className="action-desc">Track business expenses</span>

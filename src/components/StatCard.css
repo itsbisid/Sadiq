@@ -34,15 +34,21 @@
 }
 
 .stat-icon-wrapper {
-  width: 54px;
-  height: 54px;
-  border-radius: var(--radius-lg);
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s ease;
 }
 
-.stat-icon-wrapper.blue { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
-.stat-icon-wrapper.green { background: rgba(16, 185, 129, 0.15); color: #34d399; }
-.stat-icon-wrapper.orange { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
-.stat-icon-wrapper.red { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+.stat-card:hover .stat-icon-wrapper {
+  transform: translateY(-2px);
+  filter: brightness(1.2);
+}
+
+.stat-icon-wrapper.blue { background: rgba(99, 102, 241, 0.12); color: #818cf8; }
+.stat-icon-wrapper.green { background: rgba(16, 185, 129, 0.12); color: #34d399; }
+.stat-icon-wrapper.orange { background: rgba(245, 158, 11, 0.12); color: #fbbf24; }
+.stat-icon-wrapper.red { background: rgba(239, 68, 68, 0.12); color: #f87171; }

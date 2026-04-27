@@ -11,7 +11,7 @@ const StatCard = ({ title, value, subtext, icon: Icon, color }) => {
           <span className="stat-subtext">{subtext}</span>
         </div>
         <div className={`stat-icon-wrapper ${color}`}>
-          <Icon size={24} />
+          <Icon size={22} strokeWidth={2.5} />
         </div>
       </div>
     </div>
