@@ -7,14 +7,55 @@ import './NavbarLayout.css';
 const Navbar = () => {
   const { isDarkMode, toggleTheme } = useTheme();
 
+  // Explicit inline styles to override any production bundle issues
+  const navContainerStyle = {
+    backgroundColor: '#1e293b',
+    borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+    width: '100%',
+    height: '70px',
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0 2rem',
+    position: 'sticky',
+    top: 0,
+    zIndex: 1000,
+    boxSizing: 'border-box'
+  };
+
+  const navContentStyle = {
+    width: '100%',
+    maxWidth: '1200px',
+    margin: '0 auto',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  };
+
+  const logoStyle = {
+    fontSize: '1.5rem',
+    fontWeight: '900',
+    color: '#6366f1',
+    margin: 0,
+    padding: 0,
+    whiteSpace: 'nowrap'
+  };
+
+  const linksContainerStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: '1.5rem',
+    alignItems: 'center',
+    margin: '0 1rem'
+  };
+
   return (
-    <nav className="navbar-container">
-      <div className="navbar-content">
+    <nav style={navContainerStyle}>
+      <div style={navContentStyle}>
         <div className="navbar-logo">
-          <h1>Sadiq Drinks</h1>
+          <h1 style={logoStyle}>Sadiq Drinks</h1>
         </div>
         
-        <div className="nav-links">
+        <div style={linksContainerStyle} className="nav-links">
           <NavLink to="/" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
             <LayoutDashboard size={20} />
             <span>Dashboard</span>
