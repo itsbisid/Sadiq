@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../lib/db';
 import ProductCard from '../components/ProductCard';
+import ManageProductModal from '../components/ManageProductModal';
 import { supabase } from '../lib/supabase';
 import { Plus, Search, Filter, X } from 'lucide-react';
 
@@ -8,6 +9,7 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isAdding, setIsAdding] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [newProduct, setNewProduct] = useState({
     name: '',
     sku: '',
@@ -52,6 +54,18 @@ const Products = () => {
       console.error(err);
       alert('Failed to add product');
     }
+  };
+
+  const handleUpdateProduct = (updatedProduct) => {
+    setProducts(products.map(p => p.id === updatedProduct.id ? updatedProduct : p));
+    // Also update selectedProduct if it's currently open to keep data in sync
+    if (selectedProduct && selectedProduct.id === updatedProduct.id) {
+      setSelectedProduct(updatedProduct);
+    }
+  };
+
+  const handleDeleteProduct = (productId) => {
+    setProducts(products.filter(p => p.id !== productId));
   };
 
   return (
@@ -130,10 +144,20 @@ const Products = () => {
           <ProductCard 
             key={product.id} 
             product={product} 
-            onDelete={() => setProducts(products.filter(p => p.id !== product.id))}
+            onDelete={handleDeleteProduct}
+            onManage={setSelectedProduct}
           />
         ))}
       </div>
+
+      {selectedProduct && (
+        <ManageProductModal 
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+          onUpdate={handleUpdateProduct}
+          onDelete={handleDeleteProduct}
+        />
+      )}
     </div>
   );
 };

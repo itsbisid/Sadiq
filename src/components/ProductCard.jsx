@@ -1,18 +1,34 @@
+import React, { useState } from 'react';
 import { Package, AlertTriangle, ChevronRight, Trash2 } from 'lucide-react';
 import { db } from '../lib/db';
 import './ProductCard.css';
 
-const ProductCard = ({ product, onDelete }) => {
+const ProductCard = ({ product, onDelete, onManage }) => {
   const isLowStock = product.current_stock_bottles <= product.low_stock_threshold;
   
   const displayCrates = Math.floor(product.current_stock_bottles / product.units_per_crate);
   const displayBottles = product.current_stock_bottles % product.units_per_crate;
 
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+
   const handleDelete = async (e) => {
     e.stopPropagation();
-    if (window.confirm(`Are you sure you want to delete ${product.name}?`)) {
-      await db.products.delete(product.id);
-      if (onDelete) onDelete();
+    if (!showConfirmDelete) {
+      setShowConfirmDelete(true);
+      return;
+    }
+    
+    console.log('Confirming delete for:', product.id);
+    try {
+      const id = Number(product.id);
+      await db.products.delete(id);
+      console.log('Successfully deleted from Dexie:', id);
+      if (onDelete) onDelete(id);
+    } catch (err) {
+      console.error('CRITICAL: Delete failed:', err);
+      alert('Could not delete product. Check console for details.');
+    } finally {
+      setShowConfirmDelete(false);
     }
   };
 
@@ -28,12 +44,15 @@ const ProductCard = ({ product, onDelete }) => {
             <span className="sku">{product.sku}</span>
           </div>
         </div>
-        <button className="delete-btn" onClick={handleDelete} title="Delete Product">
-          <Trash2 size={18} />
+        <button 
+          className={`delete-btn ${showConfirmDelete ? 'confirming' : ''}`} 
+          onClick={handleDelete} 
+          title={showConfirmDelete ? "Confirm Delete" : "Delete Product"}
+          style={{ backgroundColor: showConfirmDelete ? 'var(--danger)' : '', color: showConfirmDelete ? 'white' : '' }}
+        >
+          {showConfirmDelete ? <AlertTriangle size={18} /> : <Trash2 size={18} />}
         </button>
       </div>
-      
-      {/* ... rest of the card ... */}
       
       <div className="product-stock">
         <div className="stock-values">
@@ -57,7 +76,7 @@ const ProductCard = ({ product, onDelete }) => {
       </div>
       
       <div className="product-actions">
-        <button className="btn-ghost">
+        <button className="btn-ghost" onClick={() => onManage(product)}>
           <span>Manage</span>
           <ChevronRight size={16} />
         </button>
