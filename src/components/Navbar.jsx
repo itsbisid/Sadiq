@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { LayoutDashboard, Package, ShoppingCart, Users, FileText, DollarSign, Moon, Sun } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
-import './Navbar.css';
+import './NavbarLayout.css';
 
 const Navbar = () => {
   const { isDarkMode, toggleTheme } = useTheme();
